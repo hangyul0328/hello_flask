@@ -10,27 +10,15 @@
     <div class="flex gap-2 flex-wrap">
         {% for skill in data %}
             {% if skill != "C#" %}
-                {% if skill == "Python" %}
+                {% if skill == "Python" or skill == "Ruby" %}
                     <span class="bg-gray-300 px-3 py-1 rounded-full">[BACKEND]{{ skill }}</span>
-                {% elif skill == "HTML" %}
-                    <span class="bg-orange-500 text-white px-3 py-1 rounded-full">{{ skill }}</span>
+                {% elif skill == "JavaScript"  or  skill == "TypeScript" or skill == "CSS" or skill == "HTML"%}
+                    <span class="bg-orange-500 text-white px-3 py-1 rounded-full">{{ skill }}</span>  
                 {% elif skill == "PHP" %}
                     <span class="bg-gray-300 px-3 py-1 rounded-full">[BACKEND]{{ skill }}</span>                                 
-                {% elif skill == "CSS" %}
-                    <span class="bg-orange-500 text-white px-3 py-1 rounded-full">{{ skill }}</span>   
-                {% elif skill == "C" %}
-                    <span class="bg-blue-500 text-white px-3 py-1 rounded-full">{{ skill }}</span> 
-                {% elif skill == "C++" %}
-                    <span class="bg-blue-500 text-white px-3 py-1 rounded-full">{{ skill }}</span>   
-                {% elif skill == "Rust" %}
-                    <span class="bg-blue-500 text-white px-3 py-1 rounded-full">{{ skill }}</span> 
-                {% elif skill == "JavaScript" %}
-                    <span class="bg-orange-500 text-white px-3 py-1 rounded-full">{{ skill }}</span>       
-                {% elif skill == "TypeScript" %}
-                    <span class="bg-orange-500 text-white px-3 py-1 rounded-full">{{ skill }}</span>                              
+                {% elif skill == "C" or skill == "Rust" or skill == "C++" %}
+                    <span class="bg-blue-500 text-white px-3 py-1 rounded-full">{{ skill }}</span>                                  
                 {% elif skill == "SQL" %}
-                    <span class="bg-violet-300 px-3 py-1 rounded-full">[DB]{{ skill }}</span>
-                {% elif skill == "Ruby" %}
                     <span class="bg-gray-300 px-3 py-1 rounded-full">[BACKEND]{{ skill }}</span>
                 {% else %}
                     <span class="bg-green-300 px-3 py-1 rounded-full">{{ skill }}</span>
