@@ -11,12 +11,39 @@ def home():
 @app.route('/send', methods=['POST'])
 def send():
     skill = request.form.get('skill', '').strip()
+    level = request.form.get('level', '').strip()
+    status = request.form.get('status', '').strip()
 
-    if not skill:
+    if not skill or not level or not status:
         return redirect('/')
-    
-    messages.append({"skill": skill})
-    
+
+    messages.append({
+        "skill": skill,
+        "level": level,
+        "status": status
+    })
+
+    return redirect('/')
+
+@app.route('/delete/<int:index>', methods=['POST'])
+def delete(index):
+    if 0 <= index < len(messages):
+        messages.pop(index)
+    return redirect('/')
+
+@app.route('/delete_all', methods=['POST'])
+def delete_all():
+    messages.clear()
+    return redirect('/')
+
+@app.route('/delete_selected', methods=['POST'])
+def delete_selected():
+    indexes = request.form.getlist('delete_indexes')
+    indexes = [int(i) for i in indexes]
+    indexes.sort(reverse=True)
+    for index in indexes:
+        if 0 <= index < len(messages):
+            messages.pop(index)
     return redirect('/')
 
 if __name__ == '__main__':

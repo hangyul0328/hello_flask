@@ -7,28 +7,60 @@
 <body class="p-8">
     <h1 class="text-2xl font-bold mb-4">내 기술 스택</h1>
 
-    <form action="/send" method="POST">
-        <input type="text" name="skill" placeholder="기술명(Skill)">
-        <button type="submit">전송</button>
+    <form action="/send" method="POST" class="mb-6 space-y-2">
+        <input type="text" name="skill" placeholder="기술명 예: Python" class="border px-3 py-2 rounded w-full">
+        <input type="text" name="level" placeholder="수준 예: 상, 중, 하" class="border px-3 py-2 rounded w-full">
+        <input type="text" name="status" placeholder="상태 예: 공부중, 복습필요, 완료" class="border px-3 py-2 rounded w-full">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">추가</button>
     </form>
 
     <h2 class="text-xl font-bold mb-3">입력한 데이터</h2>
 
+    <form action="/delete_all" method="POST" class="mb-2">
+        <button
+            type="button"
+            onclick="if(confirm('전체 삭제하시겠습니까?')) this.closest('form').submit()"
+            class="bg-gray-700 text-white px-4 py-2 rounded"
+        >
+            전체 삭제
+        </button>
+    </form>
+
+    <form id="deleteSelectedForm" action="/delete_selected" method="POST"></form>
+    <button
+        type="button"
+        onclick="if(confirm('선택한 항목을 삭제하시겠습니까?')) document.getElementById('deleteSelectedForm').submit()"
+        class="bg-orange-500 text-white px-4 py-2 rounded mb-3"
+    >
+        선택 삭제
+    </button>
+
+    <div class="space-y-2">
     {% for item in messages %}
-    <p>
-        <span class="
-            {% if item['skill'] == 'Python' %} text-blue-500
-            {% elif item['skill'] == 'HTML' %} text-orange-500
-            {% elif item['skill'] == 'SQL' %} text-green-600
-            {% elif item['skill'] == 'Bash' %} text-gray-600
-            {% elif item['skill'] == 'Java' %} text-red-500
-            {% elif item['skill'] == 'JavaScript' %} text-yellow-500
-            {% else %} text-black
-            {% endif %}">
-            {{ item['skill'] }}
-        </span>
-    </p>
+        <div class="border p-3 rounded flex items-center gap-3">
+            <input
+                type="checkbox"
+                name="delete_indexes"
+                value="{{ loop.index0 }}"
+                form="deleteSelectedForm"
+                class="w-4 h-4"
+            >
+            <div class="flex-1">
+                <p class="font-bold">{{ item["skill"] }}</p>
+                <p class="text-sm text-gray-600">수준: {{ item["level"] }} / 상태: {{ item["status"] }}</p>
+            </div>
+            <form action="/delete/{{ loop.index0 }}" method="POST">
+                <button
+                    type="button"
+                    onclick="if(confirm('삭제하시겠습니까?')) this.closest('form').submit()"
+                    class="bg-red-500 text-white px-3 py-1 rounded"
+                >
+                    삭제
+                </button>
+            </form>
+        </div>
     {% endfor %}
+    </div>
 
 </body>
 </html>
